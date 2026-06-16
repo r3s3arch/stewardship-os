@@ -936,27 +936,74 @@ if (reviewButton) {
 // V4.2 EXERCISE LIBRARY ENGINE
 // =====================
 
-function normalizeExerciseLibrary() {
+function getExerciseLibraryData() {
   const data = getData();
 
-  if (!data.exerciseLibrary) {
-    data.exerciseLibrary = [];
+  if (!Array.isArray(data.exerciseLibrary)) {
+    data.exerciseLibrary = [
+      {
+        name: "Pull Ups",
+        category: "Upper",
+        trackingType: "Reps",
+        archived: false
+      },
+      {
+        name: "Dead Hang",
+        category: "Mobility",
+        trackingType: "Duration",
+        archived: false
+      },
+      {
+        name: "Incline Press",
+        category: "Upper",
+        trackingType: "Weight + Reps",
+        archived: false
+      },
+      {
+        name: "Front Squat",
+        category: "Lower",
+        trackingType: "Weight + Reps",
+        archived: false
+      },
+      {
+        name: "RDL",
+        category: "Lower",
+        trackingType: "Weight + Reps",
+        archived: false
+      },
+      {
+        name: "Farmer Carry",
+        category: "Carry",
+        trackingType: "Weight + Duration",
+        archived: false
+      }
+    ];
+
+    saveData(data);
   }
 
   data.exerciseLibrary = data.exerciseLibrary.map(exercise => {
     return {
       name: exercise.name,
-      category: exercise.category || exercise.group || "Upper",
-      trackingType: exercise.trackingType || "Reps",
+      category:
+        exercise.category ||
+        exercise.group ||
+        "Upper",
+      trackingType:
+        exercise.trackingType ||
+        exercise.tracking ||
+        "Reps",
       archived: exercise.archived || false
     };
   });
 
   saveData(data);
+
+  return data;
 }
 
 function renderExerciseDropdown() {
-  const data = getData();
+  const data = getExerciseLibraryData();
 
   const exerciseSelect =
     document.getElementById("exerciseSelect");
@@ -967,21 +1014,25 @@ function renderExerciseDropdown() {
 
   const activeExercises =
     data.exerciseLibrary.filter(
-      exercise => !exercise.archived
+      exercise => exercise.archived !== true
     );
 
   exerciseSelect.innerHTML =
     activeExercises
       .map(exercise => {
-        return "<option>" +
+        return (
+          "<option value='" +
           exercise.name +
-          "</option>";
+          "'>" +
+          exercise.name +
+          "</option>"
+        );
       })
       .join("");
 }
 
 function renderExerciseLibraryList() {
-  const data = getData();
+  const data = getExerciseLibraryData();
 
   const list =
     document.getElementById("exerciseLibraryList");
@@ -992,14 +1043,8 @@ function renderExerciseLibraryList() {
 
   const activeExercises =
     data.exerciseLibrary.filter(
-      exercise => !exercise.archived
+      exercise => exercise.archived !== true
     );
-
-  if (activeExercises.length === 0) {
-    list.innerHTML =
-      "<div class='metric'>No exercises saved.</div>";
-    return;
-  }
 
   list.innerHTML =
     activeExercises
@@ -1019,16 +1064,23 @@ function renderExerciseLibraryList() {
 }
 
 function addExerciseToLibrary() {
-  const data = getData();
+  const data = getExerciseLibraryData();
 
-  const name =
-    document.getElementById("newExerciseName").value.trim();
+  const nameInput =
+    document.getElementById("newExerciseName");
 
-  const category =
-    document.getElementById("newExerciseGroup").value;
+  const groupInput =
+    document.getElementById("newExerciseGroup");
 
-  const trackingType =
-    document.getElementById("newExerciseTracking").value;
+  const trackingInput =
+    document.getElementById("newExerciseTracking");
+
+  if (!nameInput || !groupInput || !trackingInput) {
+    alert("Exercise library fields not found.");
+    return;
+  }
+
+  const name = nameInput.value.trim();
 
   if (!name) {
     alert("Enter an exercise name.");
@@ -1038,25 +1090,26 @@ function addExerciseToLibrary() {
   const existing =
     data.exerciseLibrary.find(
       exercise =>
-        exercise.name.toLowerCase() === name.toLowerCase()
+        exercise.name.toLowerCase() ===
+        name.toLowerCase()
     );
 
   if (existing) {
-    existing.category = category;
-    existing.trackingType = trackingType;
+    existing.category = groupInput.value;
+    existing.trackingType = trackingInput.value;
     existing.archived = false;
   } else {
     data.exerciseLibrary.push({
       name: name,
-      category: category,
-      trackingType: trackingType,
+      category: groupInput.value,
+      trackingType: trackingInput.value,
       archived: false
     });
   }
 
   saveData(data);
 
-  document.getElementById("newExerciseName").value = "";
+  nameInput.value = "";
 
   renderExerciseDropdown();
   renderExerciseLibraryList();
@@ -1064,8 +1117,7 @@ function addExerciseToLibrary() {
   alert("Exercise saved.");
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  normalizeExerciseLibrary();
+function initializeExerciseLibraryEngine() {
   renderExerciseDropdown();
   renderExerciseLibraryList();
 
@@ -1075,4 +1127,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (addExerciseButton) {
     addExerciseButton.onclick = addExerciseToLibrary;
   }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  initializeExerciseLibraryEngine();
 });
