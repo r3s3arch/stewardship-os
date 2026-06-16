@@ -1037,3 +1037,4 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("saveCompletionButton")
     .addEventListener("click", saveTodayCompletion);
 });
+V4.2 wire hardcoded completion card
