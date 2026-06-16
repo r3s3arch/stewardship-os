@@ -299,3 +299,54 @@ document.addEventListener(
     renderHome();
   }
 );
+// =====================
+// EXECUTE RENDERER
+// =====================
+
+function renderExecute() {
+
+  const day = getCurrentDay();
+
+  if (!day) {
+    return;
+  }
+
+  document.getElementById(
+    "executeTraining"
+  ).innerHTML =
+    renderList(day.training);
+
+  document.getElementById(
+    "executeMobility"
+  ).innerHTML =
+    renderList(day.mobility);
+
+  document.getElementById(
+    "executeFaith"
+  ).innerHTML =
+    "<div class='metric'>" +
+    day.faith +
+    "</div>";
+
+  document.getElementById(
+    "executeFamily"
+  ).innerHTML =
+    "<div class='metric'>" +
+    day.family +
+    "</div>";
+
+  document.getElementById(
+    "executeMinimum"
+  ).innerHTML =
+    renderList(day.minimumDay);
+
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    renderExecute();
+
+  }
+);
