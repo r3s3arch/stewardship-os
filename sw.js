@@ -1,4 +1,4 @@
-const CACHE_NAME = "stewardship-os-v42-exercise-library";
+const CACHE_NAME = "stewardship-os-v43-group-fix";
 
 const FILES_TO_CACHE = [
   "./",
