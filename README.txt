@@ -1,0 +1,1 @@
+Stewardship OS Static App\n\nModules: Personal OS, The Orchard, The Lantern, The Beacon.\n\nDeploy free on GitHub Pages: create repo, upload files to root, Settings > Pages > Deploy from main/root. Open URL in Safari and Add to Home Screen.\n\nNo backend. Data is local. Export backup regularly.

@@ -1,0 +1,15 @@
+{
+  "name": "Stewardship OS",
+  "short_name": "Stewardship OS",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F6F3EA",
+  "theme_color": "#14213D",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
