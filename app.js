@@ -387,33 +387,18 @@ function saveBodyMetrics() {
 
 }
 
-function saveExerciseResult() {
+n saveExerciseResult() {
 
   const data = getData();
 
-  const selectedExercise =
-    document.getElementById(
-      "exerciseSelect"
-    ).value;
-
-  const exerciseDefinition =
-    data.exerciseLibrary.find(
-      exercise =>
-        exercise.name === selectedExercise
-    );
-
   const result = {
 
-    date:
-      new Date().toISOString(),
+    date: new Date().toISOString(),
 
     exercise:
-      selectedExercise,
-
-    group:
-      exerciseDefinition
-        ? exerciseDefinition.category
-        : "Unknown",
+      document.getElementById(
+        "exerciseSelect"
+      ).value,
 
     weight:
       document.getElementById(
@@ -431,14 +416,6 @@ function saveExerciseResult() {
       ).value
 
   };
-
-  data.trainingLogs.push(result);
-
-  saveData(data);
-
-  alert("Training result saved.");
-
-}
 
   data.trainingLogs.push(result);
 
