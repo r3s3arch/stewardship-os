@@ -1,6 +1,7 @@
 {
-  "name": "Stewardship OS",
+  "name": "Stewardship OS V4.1",
   "short_name": "Stewardship OS",
+  "description": "Personal operating system for physical training, mobility, faith, family, and stewardship.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F6F3EA",
