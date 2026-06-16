@@ -459,3 +459,188 @@ document.addEventListener(
 
   }
 );
+// =====================
+// REVIEW ENGINE
+// =====================
+
+function getBestReps(exerciseName) {
+
+  const data = getData();
+
+  const results =
+    data.trainingLogs.filter(
+      log => log.exercise === exerciseName
+    );
+
+  if (results.length === 0) {
+    return 0;
+  }
+
+  return Math.max(
+    ...results.map(
+      log => Number(log.reps) || 0
+    )
+  );
+
+}
+
+function getBestDuration(exerciseName) {
+
+  const data = getData();
+
+  const results =
+    data.trainingLogs.filter(
+      log => log.exercise === exerciseName
+    );
+
+  if (results.length === 0) {
+    return 0;
+  }
+
+  return Math.max(
+    ...results.map(
+      log => Number(log.duration) || 0
+    )
+  );
+
+}
+
+function getLatestBodyMetric(metricName) {
+
+  const data = getData();
+
+  if (data.bodyLogs.length === 0) {
+    return "No data";
+  }
+
+  const latest =
+    data.bodyLogs[
+      data.bodyLogs.length - 1
+    ];
+
+  return latest[metricName] || "No data";
+
+}
+
+function calculateStandard() {
+
+  const pullUps =
+    getBestReps("Pull Ups");
+
+  const deadHang =
+    getBestDuration("Dead Hang");
+
+  if (
+    pullUps >= 25 &&
+    deadHang >= 120
+  ) {
+    return "Spartan";
+  }
+
+  if (
+    pullUps >= 20 &&
+    deadHang >= 120
+  ) {
+    return "Gold";
+  }
+
+  if (
+    pullUps >= 15 &&
+    deadHang >= 90
+  ) {
+    return "Silver";
+  }
+
+  if (
+    pullUps >= 10 &&
+    deadHang >= 60
+  ) {
+    return "Bronze";
+  }
+
+  return "Base";
+
+}
+
+function calculateWeakestGap() {
+
+  const pullUps =
+    getBestReps("Pull Ups");
+
+  const deadHang =
+    getBestDuration("Dead Hang");
+
+  if (pullUps < 10) {
+    return "Pull Ups";
+  }
+
+  if (deadHang < 60) {
+    return "Dead Hang";
+  }
+
+  if (pullUps < 15) {
+    return "Pull Ups";
+  }
+
+  if (deadHang < 90) {
+    return "Dead Hang";
+  }
+
+  if (pullUps < 20) {
+    return "Pull Ups";
+  }
+
+  if (deadHang < 120) {
+    return "Dead Hang";
+  }
+
+  return "Strength Load";
+
+}
+
+function renderReview() {
+
+  document.getElementById(
+    "executionReview"
+  ).innerHTML =
+    "<div class='metric'>Execution tracking coming next.</div>";
+
+  document.getElementById(
+    "strengthReview"
+  ).innerHTML =
+    "<div class='metric'>Pull Ups: " +
+    getBestReps("Pull Ups") +
+    "</div>" +
+    "<div class='metric'>Dead Hang: " +
+    getBestDuration("Dead Hang") +
+    " sec</div>" +
+    "<div class='metric'>Current Standard: " +
+    calculateStandard() +
+    "</div>" +
+    "<div class='metric'>Weakest Gap: " +
+    calculateWeakestGap() +
+    "</div>";
+
+  document.getElementById(
+    "bodyReview"
+  ).innerHTML =
+    "<div class='metric'>Weight: " +
+    getLatestBodyMetric("weight") +
+    "</div>" +
+    "<div class='metric'>Waist: " +
+    getLatestBodyMetric("waist") +
+    "</div>" +
+    "<div class='metric'>Sleep: " +
+    getLatestBodyMetric("sleep") +
+    "</div>";
+
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    renderReview();
+
+  }
+);
