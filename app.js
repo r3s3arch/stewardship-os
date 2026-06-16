@@ -1078,3 +1078,46 @@ function debugDailyLogs() {
 document.addEventListener("DOMContentLoaded", function () {
   debugDailyLogs();
 });
+// =====================
+// V4.2 FIX DAILY COMPLETION SAVE
+// =====================
+
+function fixedSaveTodayCompletion() {
+  const data = getData();
+
+  const todayKey = new Date()
+    .toISOString()
+    .slice(0, 10);
+
+  const updatedLog = {
+    date: todayKey,
+    training: document.getElementById("trainingCompletion").value,
+    mobility: document.getElementById("mobilityCompletion").value,
+    faith: document.getElementById("faithCompletion").value,
+    family: document.getElementById("familyCompletion").value
+  };
+
+  const existingIndex = data.dailyLogs.findIndex(
+    log => log.date === todayKey
+  );
+
+  if (existingIndex >= 0) {
+    data.dailyLogs[existingIndex] = updatedLog;
+  } else {
+    data.dailyLogs.push(updatedLog);
+  }
+
+  saveData(data);
+
+  alert("Daily completion saved.");
+
+  renderCompletionReview();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const saveButton = document.getElementById("saveCompletionButton");
+
+  if (saveButton) {
+    saveButton.onclick = fixedSaveTodayCompletion;
+  }
+});
