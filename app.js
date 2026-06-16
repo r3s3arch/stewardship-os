@@ -233,3 +233,69 @@ document.addEventListener(
 
   }
 );
+// =====================
+// HOME RENDERER
+// =====================
+
+function renderList(items) {
+
+  if (!items || items.length === 0) {
+    return "<div class='metric'>None assigned</div>";
+  }
+
+  return items
+    .map(item => {
+      return "<div class='metric'>" + item + "</div>";
+    })
+    .join("");
+
+}
+
+function renderHome() {
+
+  const data = getData();
+
+  const day = getCurrentDay();
+
+  if (!day) {
+    return;
+  }
+
+  document.getElementById("homeDayTitle").textContent =
+    "Day " + day.day + " · " + day.title;
+
+  document.getElementById("homeMission").textContent =
+    day.mission;
+
+  document.getElementById("todayOrders").innerHTML =
+    "<div class='metric'><strong>Training</strong></div>" +
+    renderList(day.training) +
+    "<div class='metric'><strong>Mobility</strong></div>" +
+    renderList(day.mobility) +
+    "<div class='metric'><strong>Faith</strong></div>" +
+    "<div class='metric'>" + day.faith + "</div>" +
+    "<div class='metric'><strong>Family</strong></div>" +
+    "<div class='metric'>" + day.family + "</div>";
+
+  document.getElementById("recoveryStatus").innerHTML =
+    "<div class='metric'>Upper: Ready</div>" +
+    "<div class='metric'>Lower: Ready</div>" +
+    "<div class='metric'>Carry: Ready</div>";
+
+  document.getElementById("currentStandard").innerHTML =
+    "<div class='metric'>Base</div>";
+
+  document.getElementById("weakestGap").innerHTML =
+    "<div class='metric'>Pull Ups</div>";
+
+  document.getElementById("nextBestAction").innerHTML =
+    "<div class='metric'>Execute today’s assignment.</div>";
+
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+    renderHome();
+  }
+);
