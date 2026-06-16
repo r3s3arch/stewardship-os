@@ -1050,20 +1050,26 @@ function renderExerciseLibraryList() {
     activeExercises
       .map(exercise => {
         return (
-          "<div class='metric'>" +
-          "<strong>" +
-          exercise.name +
-          "</strong><br>" +
-          exercise.category +
-          " · " +
-          exercise.trackingType +
-          "</div>"
-        );
+  "<div class='metric'>" +
+  "<strong>" +
+  exercise.name +
+  "</strong><br>" +
+  exercise.category +
+  " · " +
+  exercise.trackingType +
+  "<br>" +
+  "<button onclick=\"archiveExercise('" +
+  exercise.name +
+  "')\">" +
+  "Archive" +
+  "</button>" +
+  "</div>"
+);
       })
       .join("");
 }
-
 function addExerciseToLibrary() {
+
   const data = getExerciseLibraryData();
 
   const nameInput =
@@ -1117,7 +1123,30 @@ function addExerciseToLibrary() {
   alert("Exercise saved.");
 }
 
+function archiveExercise(name) {
+
+  const data = getExerciseLibraryData();
+
+  const exercise =
+    data.exerciseLibrary.find(
+      item => item.name === name
+    );
+
+  if (!exercise) {
+    return;
+  }
+
+  exercise.archived = true;
+
+  saveData(data);
+
+  renderExerciseDropdown();
+  renderExerciseLibraryList();
+
+}
+
 function initializeExerciseLibraryEngine() {
+
   renderExerciseDropdown();
   renderExerciseLibraryList();
 
@@ -1127,6 +1156,7 @@ function initializeExerciseLibraryEngine() {
   if (addExerciseButton) {
     addExerciseButton.onclick = addExerciseToLibrary;
   }
+
 }
 
 document.addEventListener("DOMContentLoaded", function () {
