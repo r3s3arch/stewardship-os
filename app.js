@@ -769,3 +769,259 @@ document.addEventListener(
 
   }
 );
+// =====================
+// V4.2 DAILY COMPLETION ENGINE
+// =====================
+
+function getTodayKey() {
+
+  return new Date()
+    .toISOString()
+    .slice(0, 10);
+
+}
+
+function getTodayLog() {
+
+  const data = getData();
+
+  const todayKey =
+    getTodayKey();
+
+  let log =
+    data.dailyLogs.find(
+      entry => entry.date === todayKey
+    );
+
+  if (!log) {
+
+    log = {
+      date: todayKey,
+      training: "Pending",
+      mobility: "Pending",
+      faith: "Pending",
+      family: "Pending"
+    };
+
+    data.dailyLogs.push(log);
+
+    saveData(data);
+
+  }
+
+  return log;
+
+}
+
+function saveTodayCompletion() {
+
+  const data = getData();
+
+  const todayKey =
+    getTodayKey();
+
+  let log =
+    data.dailyLogs.find(
+      entry => entry.date === todayKey
+    );
+
+  if (!log) {
+
+    log = {
+      date: todayKey
+    };
+
+    data.dailyLogs.push(log);
+
+  }
+
+  log.training =
+    document.getElementById(
+      "trainingCompletion"
+    ).value;
+
+  log.mobility =
+    document.getElementById(
+      "mobilityCompletion"
+    ).value;
+
+  log.faith =
+    document.getElementById(
+      "faithCompletion"
+    ).value;
+
+  log.family =
+    document.getElementById(
+      "familyCompletion"
+    ).value;
+
+  saveData(data);
+
+  alert("Daily completion saved.");
+
+}
+
+function renderDailyCompletion() {
+
+  const log =
+    getTodayLog();
+
+  const executeScreen =
+    document.getElementById(
+      "executeScreen"
+    );
+
+  if (
+    !executeScreen ||
+    document.getElementById(
+      "dailyCompletionCard"
+    )
+  ) {
+    return;
+  }
+
+  const card =
+    document.createElement("div");
+
+  card.className = "card";
+
+  card.id =
+    "dailyCompletionCard";
+
+  card.innerHTML =
+    "<h3>Daily Completion</h3>" +
+
+    "<select id='trainingCompletion'>" +
+    "<option>Pending</option>" +
+    "<option>Complete</option>" +
+    "<option>Modified</option>" +
+    "<option>Missed</option>" +
+    "</select>" +
+
+    "<select id='mobilityCompletion'>" +
+    "<option>Pending</option>" +
+    "<option>Complete</option>" +
+    "<option>Modified</option>" +
+    "<option>Missed</option>" +
+    "</select>" +
+
+    "<select id='faithCompletion'>" +
+    "<option>Pending</option>" +
+    "<option>Complete</option>" +
+    "<option>Modified</option>" +
+    "<option>Missed</option>" +
+    "</select>" +
+
+    "<select id='familyCompletion'>" +
+    "<option>Pending</option>" +
+    "<option>Complete</option>" +
+    "<option>Modified</option>" +
+    "<option>Missed</option>" +
+    "</select>" +
+
+    "<button id='saveCompletionButton'>" +
+    "Save Daily Completion" +
+    "</button>";
+
+  executeScreen.appendChild(card);
+
+  document.getElementById(
+    "trainingCompletion"
+  ).value = log.training;
+
+  document.getElementById(
+    "mobilityCompletion"
+  ).value = log.mobility;
+
+  document.getElementById(
+    "faithCompletion"
+  ).value = log.faith;
+
+  document.getElementById(
+    "familyCompletion"
+  ).value = log.family;
+
+  document.getElementById(
+    "saveCompletionButton"
+  ).addEventListener(
+    "click",
+    saveTodayCompletion
+  );
+
+}
+
+function calculateCompletionRate(type) {
+
+  const data =
+    getData();
+
+  const logs =
+    data.dailyLogs.filter(
+      log => log[type] !== "Pending"
+    );
+
+  if (logs.length === 0) {
+    return "No data";
+  }
+
+  const score =
+    logs.reduce(
+      (total, log) => {
+
+        if (log[type] === "Complete") {
+          return total + 1;
+        }
+
+        if (log[type] === "Modified") {
+          return total + 0.5;
+        }
+
+        return total;
+
+      },
+      0
+    );
+
+  return Math.round(
+    (score / logs.length) * 100
+  ) + "%";
+
+}
+
+function renderCompletionReview() {
+
+  const executionReview =
+    document.getElementById(
+      "executionReview"
+    );
+
+  if (!executionReview) {
+    return;
+  }
+
+  executionReview.innerHTML =
+    "<div class='metric'>Training: " +
+    calculateCompletionRate("training") +
+    "</div>" +
+    "<div class='metric'>Mobility: " +
+    calculateCompletionRate("mobility") +
+    "</div>" +
+    "<div class='metric'>Faith: " +
+    calculateCompletionRate("faith") +
+    "</div>" +
+    "<div class='metric'>Family: " +
+    calculateCompletionRate("family") +
+    "</div>";
+
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    renderDailyCompletion();
+
+    renderCompletionReview();
+
+  }
+);
