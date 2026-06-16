@@ -1054,3 +1054,27 @@ document
   .addEventListener("click", function () {
     setTimeout(forceExecutionReview, 50);
   });
+// =====================
+// V4.2 DEBUG DAILY LOGS
+// =====================
+
+function debugDailyLogs() {
+  const data = getData();
+
+  const executionReview =
+    document.getElementById("executionReview");
+
+  if (!executionReview) {
+    return;
+  }
+
+  executionReview.innerHTML +=
+    "<div class='metric'><strong>Debug Logs</strong></div>" +
+    "<pre style='white-space:pre-wrap;font-size:12px;'>" +
+    JSON.stringify(data.dailyLogs, null, 2) +
+    "</pre>";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  debugDailyLogs();
+});
