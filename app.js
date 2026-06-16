@@ -185,3 +185,51 @@ function initializeApp() {
 }
 
 initializeApp();
+// =====================
+// NAVIGATION ENGINE
+// =====================
+
+function showScreen(screenId) {
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+      screen.classList.remove("active");
+    });
+
+  const target =
+    document.getElementById(screenId);
+
+  if (target) {
+    target.classList.add("active");
+  }
+
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    const navButtons =
+      document.querySelectorAll(
+        ".bottomNav button"
+      );
+
+    navButtons.forEach(button => {
+
+      button.addEventListener(
+        "click",
+        function () {
+
+          const screenId =
+            this.dataset.screen;
+
+          showScreen(screenId);
+
+        }
+      );
+
+    });
+
+  }
+);
