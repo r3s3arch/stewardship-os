@@ -644,3 +644,128 @@ document.addEventListener(
 
   }
 );
+// =====================
+// SETTINGS ENGINE
+// =====================
+
+function saveSettings() {
+
+  const data = getData();
+
+  data.settings.targetBodyweight =
+    document.getElementById(
+      "targetBodyweight"
+    ).value;
+
+  data.settings.goal =
+    document.getElementById(
+      "goalMode"
+    ).value;
+
+  saveData(data);
+
+  alert("Settings saved.");
+
+}
+
+function exportBackup() {
+
+  const data = getData();
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+
+  link.download =
+    "stewardship-os-backup.json";
+
+  link.click();
+
+}
+
+function hardReset() {
+
+  const confirmReset =
+    confirm(
+      "Delete all data?"
+    );
+
+  if (!confirmReset) {
+    return;
+  }
+
+  localStorage.removeItem(
+    STORAGE_KEY
+  );
+
+  location.reload();
+
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    const settingsButton =
+      document.getElementById(
+        "saveSettingsButton"
+      );
+
+    if (settingsButton) {
+
+      settingsButton.addEventListener(
+        "click",
+        saveSettings
+      );
+
+    }
+
+    const exportButton =
+      document.getElementById(
+        "exportButton"
+      );
+
+    if (exportButton) {
+
+      exportButton.addEventListener(
+        "click",
+        exportBackup
+      );
+
+    }
+
+    const resetButton =
+      document.getElementById(
+        "resetButton"
+      );
+
+    if (resetButton) {
+
+      resetButton.addEventListener(
+        "click",
+        hardReset
+      );
+
+    }
+
+  }
+);
