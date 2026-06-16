@@ -350,3 +350,112 @@ document.addEventListener(
 
   }
 );
+// =====================
+// LOGGING ENGINE
+// =====================
+
+function saveBodyMetrics() {
+
+  const data = getData();
+
+  const bodyEntry = {
+
+    date: new Date().toISOString(),
+
+    weight:
+      document.getElementById(
+        "bodyWeight"
+      ).value,
+
+    waist:
+      document.getElementById(
+        "waistMeasurement"
+      ).value,
+
+    sleep:
+      document.getElementById(
+        "sleepHours"
+      ).value
+
+  };
+
+  data.bodyLogs.push(bodyEntry);
+
+  saveData(data);
+
+  alert("Body metrics saved.");
+
+}
+
+function saveExerciseResult() {
+
+  const data = getData();
+
+  const result = {
+
+    date: new Date().toISOString(),
+
+    exercise:
+      document.getElementById(
+        "exerciseSelect"
+      ).value,
+
+    weight:
+      document.getElementById(
+        "exerciseWeight"
+      ).value,
+
+    reps:
+      document.getElementById(
+        "exerciseReps"
+      ).value,
+
+    duration:
+      document.getElementById(
+        "exerciseDuration"
+      ).value
+
+  };
+
+  data.trainingLogs.push(result);
+
+  saveData(data);
+
+  alert("Training result saved.");
+
+}
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    const bodyButton =
+      document.getElementById(
+        "saveBodyButton"
+      );
+
+    if (bodyButton) {
+
+      bodyButton.addEventListener(
+        "click",
+        saveBodyMetrics
+      );
+
+    }
+
+    const exerciseButton =
+      document.getElementById(
+        "saveExerciseButton"
+      );
+
+    if (exerciseButton) {
+
+      exerciseButton.addEventListener(
+        "click",
+        saveExerciseResult
+      );
+
+    }
+
+  }
+);
