@@ -1,1 +1,38 @@
-const C='stewardship-os-v1';const A=['./','./index.html','./styles.css','./app.js','./manifest.json','./icon.svg'];self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>c.addAll(A)))});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==C).map(k=>caches.delete(k)))));self.clients.claim()});self.addEventListener('fetch',e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));
+const CACHE_NAME = "stewardship-os-v41";
+
+const FILES_TO_CACHE = [
+  "./",
+  "./index.html",
+  "./styles.css",
+  "./app.js",
+  "./manifest.json",
+  "./icon.svg"
+];
+
+self.addEventListener("install", event => {
+
+  event.waitUntil(
+
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(FILES_TO_CACHE);
+      })
+
+  );
+
+});
+
+self.addEventListener("fetch", event => {
+
+  event.respondWith(
+
+    caches.match(event.request)
+      .then(response => {
+
+        return response || fetch(event.request);
+
+      })
+
+  );
+
+});
