@@ -62,38 +62,78 @@
 
   </section>
 
-  <!-- EXECUTE -->
+ <!-- EXECUTE -->
 
-  <section id="executeScreen" class="screen">
+<section id="executeScreen" class="screen">
 
-    <h2>Execute</h2>
+  <h2>Execute</h2>
 
-    <div class="card">
-      <h3>Training</h3>
-      <div id="executeTraining"></div>
-    </div>
+  <div class="card">
+    <h3>Training</h3>
+    <div id="executeTraining"></div>
+  </div>
 
-    <div class="card">
-      <h3>Mobility</h3>
-      <div id="executeMobility"></div>
-    </div>
+  <div class="card">
+    <h3>Mobility</h3>
+    <div id="executeMobility"></div>
+  </div>
 
-    <div class="card">
-      <h3>Faith</h3>
-      <div id="executeFaith"></div>
-    </div>
+  <div class="card">
+    <h3>Faith</h3>
+    <div id="executeFaith"></div>
+  </div>
 
-    <div class="card">
-      <h3>Family</h3>
-      <div id="executeFamily"></div>
-    </div>
+  <div class="card">
+    <h3>Family</h3>
+    <div id="executeFamily"></div>
+  </div>
 
-    <div class="card">
-      <h3>Minimum Day</h3>
-      <div id="executeMinimum"></div>
-    </div>
+  <div class="card">
+    <h3>Minimum Day</h3>
+    <div id="executeMinimum"></div>
+  </div>
 
-  </section>
+  <div class="card" id="dailyCompletionCard">
+    <h3>Daily Completion</h3>
+
+    <label>Training</label>
+    <select id="trainingCompletion">
+      <option>Pending</option>
+      <option>Complete</option>
+      <option>Modified</option>
+      <option>Missed</option>
+    </select>
+
+    <label>Mobility</label>
+    <select id="mobilityCompletion">
+      <option>Pending</option>
+      <option>Complete</option>
+      <option>Modified</option>
+      <option>Missed</option>
+    </select>
+
+    <label>Faith</label>
+    <select id="faithCompletion">
+      <option>Pending</option>
+      <option>Complete</option>
+      <option>Modified</option>
+      <option>Missed</option>
+    </select>
+
+    <label>Family</label>
+    <select id="familyCompletion">
+      <option>Pending</option>
+      <option>Complete</option>
+      <option>Modified</option>
+      <option>Missed</option>
+    </select>
+
+    <button id="saveCompletionButton">
+      Save Daily Completion
+    </button>
+  </div>
+
+</section>
 
   <!-- LOG -->
 
