@@ -1025,3 +1025,15 @@ document.addEventListener(
 
   }
 );
+document.addEventListener("DOMContentLoaded", function () {
+  const log = getTodayLog();
+
+  document.getElementById("trainingCompletion").value = log.training;
+  document.getElementById("mobilityCompletion").value = log.mobility;
+  document.getElementById("faithCompletion").value = log.faith;
+  document.getElementById("familyCompletion").value = log.family;
+
+  document
+    .getElementById("saveCompletionButton")
+    .addEventListener("click", saveTodayCompletion);
+});
