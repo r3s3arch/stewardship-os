@@ -932,3 +932,147 @@ if (reviewButton) {
     renderCompletionReview();
   });
 }
+// =====================
+// V4.2 EXERCISE LIBRARY ENGINE
+// =====================
+
+function normalizeExerciseLibrary() {
+  const data = getData();
+
+  if (!data.exerciseLibrary) {
+    data.exerciseLibrary = [];
+  }
+
+  data.exerciseLibrary = data.exerciseLibrary.map(exercise => {
+    return {
+      name: exercise.name,
+      category: exercise.category || exercise.group || "Upper",
+      trackingType: exercise.trackingType || "Reps",
+      archived: exercise.archived || false
+    };
+  });
+
+  saveData(data);
+}
+
+function renderExerciseDropdown() {
+  const data = getData();
+
+  const exerciseSelect =
+    document.getElementById("exerciseSelect");
+
+  if (!exerciseSelect) {
+    return;
+  }
+
+  const activeExercises =
+    data.exerciseLibrary.filter(
+      exercise => !exercise.archived
+    );
+
+  exerciseSelect.innerHTML =
+    activeExercises
+      .map(exercise => {
+        return "<option>" +
+          exercise.name +
+          "</option>";
+      })
+      .join("");
+}
+
+function renderExerciseLibraryList() {
+  const data = getData();
+
+  const list =
+    document.getElementById("exerciseLibraryList");
+
+  if (!list) {
+    return;
+  }
+
+  const activeExercises =
+    data.exerciseLibrary.filter(
+      exercise => !exercise.archived
+    );
+
+  if (activeExercises.length === 0) {
+    list.innerHTML =
+      "<div class='metric'>No exercises saved.</div>";
+    return;
+  }
+
+  list.innerHTML =
+    activeExercises
+      .map(exercise => {
+        return (
+          "<div class='metric'>" +
+          "<strong>" +
+          exercise.name +
+          "</strong><br>" +
+          exercise.category +
+          " · " +
+          exercise.trackingType +
+          "</div>"
+        );
+      })
+      .join("");
+}
+
+function addExerciseToLibrary() {
+  const data = getData();
+
+  const name =
+    document.getElementById("newExerciseName").value.trim();
+
+  const category =
+    document.getElementById("newExerciseGroup").value;
+
+  const trackingType =
+    document.getElementById("newExerciseTracking").value;
+
+  if (!name) {
+    alert("Enter an exercise name.");
+    return;
+  }
+
+  const existing =
+    data.exerciseLibrary.find(
+      exercise =>
+        exercise.name.toLowerCase() === name.toLowerCase()
+    );
+
+  if (existing) {
+    existing.category = category;
+    existing.trackingType = trackingType;
+    existing.archived = false;
+  } else {
+    data.exerciseLibrary.push({
+      name: name,
+      category: category,
+      trackingType: trackingType,
+      archived: false
+    });
+  }
+
+  saveData(data);
+
+  document.getElementById("newExerciseName").value = "";
+
+  renderExerciseDropdown();
+  renderExerciseLibraryList();
+
+  alert("Exercise saved.");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  normalizeExerciseLibrary();
+  renderExerciseDropdown();
+  renderExerciseLibraryList();
+
+  const addExerciseButton =
+    document.getElementById("addExerciseButton");
+
+  if (addExerciseButton) {
+    addExerciseButton.onclick = addExerciseToLibrary;
+  }
+});
