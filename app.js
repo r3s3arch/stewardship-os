@@ -1037,4 +1037,20 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("saveCompletionButton")
     .addEventListener("click", saveTodayCompletion);
 });
-V4.2 wire hardcoded completion card
+// =====================
+// V4.2 FORCE EXECUTION REVIEW REFRESH
+// =====================
+
+function forceExecutionReview() {
+  renderCompletionReview();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  forceExecutionReview();
+});
+
+document
+  .querySelector('[data-screen="reviewScreen"]')
+  .addEventListener("click", function () {
+    setTimeout(forceExecutionReview, 50);
+  });
