@@ -774,27 +774,18 @@ document.addEventListener(
 // =====================
 
 function getTodayKey() {
-
-  return new Date()
-    .toISOString()
-    .slice(0, 10);
-
+  return new Date().toISOString().slice(0, 10);
 }
 
 function getTodayLog() {
-
   const data = getData();
+  const todayKey = getTodayKey();
 
-  const todayKey =
-    getTodayKey();
-
-  let log =
-    data.dailyLogs.find(
-      entry => entry.date === todayKey
-    );
+  let log = data.dailyLogs.find(
+    entry => entry.date === todayKey
+  );
 
   if (!log) {
-
     log = {
       date: todayKey,
       training: "Pending",
@@ -804,290 +795,15 @@ function getTodayLog() {
     };
 
     data.dailyLogs.push(log);
-
     saveData(data);
-
   }
 
   return log;
-
 }
 
 function saveTodayCompletion() {
-
   const data = getData();
-
-  const todayKey =
-    getTodayKey();
-
-  let log =
-    data.dailyLogs.find(
-      entry => entry.date === todayKey
-    );
-
-  if (!log) {
-
-    log = {
-      date: todayKey
-    };
-
-    data.dailyLogs.push(log);
-
-  }
-
-  log.training =
-    document.getElementById(
-      "trainingCompletion"
-    ).value;
-
-  log.mobility =
-    document.getElementById(
-      "mobilityCompletion"
-    ).value;
-
-  log.faith =
-    document.getElementById(
-      "faithCompletion"
-    ).value;
-
-  log.family =
-    document.getElementById(
-      "familyCompletion"
-    ).value;
-
-  saveData(data);
-
-  alert("Daily completion saved.");
-
-}
-
-function renderDailyCompletion() {
-
-  const log =
-    getTodayLog();
-
-  const executeScreen =
-    document.getElementById(
-      "executeScreen"
-    );
-
-  if (
-    !executeScreen ||
-    document.getElementById(
-      "dailyCompletionCard"
-    )
-  ) {
-    return;
-  }
-
-  const card =
-    document.createElement("div");
-
-  card.className = "card";
-
-  card.id =
-    "dailyCompletionCard";
-
-  card.innerHTML =
-    "<h3>Daily Completion</h3>" +
-
-    "<select id='trainingCompletion'>" +
-    "<option>Pending</option>" +
-    "<option>Complete</option>" +
-    "<option>Modified</option>" +
-    "<option>Missed</option>" +
-    "</select>" +
-
-    "<select id='mobilityCompletion'>" +
-    "<option>Pending</option>" +
-    "<option>Complete</option>" +
-    "<option>Modified</option>" +
-    "<option>Missed</option>" +
-    "</select>" +
-
-    "<select id='faithCompletion'>" +
-    "<option>Pending</option>" +
-    "<option>Complete</option>" +
-    "<option>Modified</option>" +
-    "<option>Missed</option>" +
-    "</select>" +
-
-    "<select id='familyCompletion'>" +
-    "<option>Pending</option>" +
-    "<option>Complete</option>" +
-    "<option>Modified</option>" +
-    "<option>Missed</option>" +
-    "</select>" +
-
-    "<button id='saveCompletionButton'>" +
-    "Save Daily Completion" +
-    "</button>";
-
-  executeScreen.appendChild(card);
-
-  document.getElementById(
-    "trainingCompletion"
-  ).value = log.training;
-
-  document.getElementById(
-    "mobilityCompletion"
-  ).value = log.mobility;
-
-  document.getElementById(
-    "faithCompletion"
-  ).value = log.faith;
-
-  document.getElementById(
-    "familyCompletion"
-  ).value = log.family;
-
-  document.getElementById(
-    "saveCompletionButton"
-  ).addEventListener(
-    "click",
-    saveTodayCompletion
-  );
-
-}
-
-function calculateCompletionRate(type) {
-
-  const data =
-    getData();
-
-  const logs =
-    data.dailyLogs.filter(
-      log => log[type] !== "Pending"
-    );
-
-  if (logs.length === 0) {
-    return "No data";
-  }
-
-  const score =
-    logs.reduce(
-      (total, log) => {
-
-        if (log[type] === "Complete") {
-          return total + 1;
-        }
-
-        if (log[type] === "Modified") {
-          return total + 0.5;
-        }
-
-        return total;
-
-      },
-      0
-    );
-
-  return Math.round(
-    (score / logs.length) * 100
-  ) + "%";
-
-}
-
-function renderCompletionReview() {
-
-  const executionReview =
-    document.getElementById(
-      "executionReview"
-    );
-
-  if (!executionReview) {
-    return;
-  }
-
-  executionReview.innerHTML =
-    "<div class='metric'>Training: " +
-    calculateCompletionRate("training") +
-    "</div>" +
-    "<div class='metric'>Mobility: " +
-    calculateCompletionRate("mobility") +
-    "</div>" +
-    "<div class='metric'>Faith: " +
-    calculateCompletionRate("faith") +
-    "</div>" +
-    "<div class='metric'>Family: " +
-    calculateCompletionRate("family") +
-    "</div>";
-
-}
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-
-    renderDailyCompletion();
-
-    renderCompletionReview();
-
-  }
-);
-document.addEventListener("DOMContentLoaded", function () {
-  const log = getTodayLog();
-
-  document.getElementById("trainingCompletion").value = log.training;
-  document.getElementById("mobilityCompletion").value = log.mobility;
-  document.getElementById("faithCompletion").value = log.faith;
-  document.getElementById("familyCompletion").value = log.family;
-
-  document
-    .getElementById("saveCompletionButton")
-    .addEventListener("click", saveTodayCompletion);
-});
-// =====================
-// V4.2 FORCE EXECUTION REVIEW REFRESH
-// =====================
-
-function forceExecutionReview() {
-  renderCompletionReview();
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  forceExecutionReview();
-});
-
-document
-  .querySelector('[data-screen="reviewScreen"]')
-  .addEventListener("click", function () {
-    setTimeout(forceExecutionReview, 50);
-  });
-// =====================
-// V4.2 DEBUG DAILY LOGS
-// =====================
-
-function debugDailyLogs() {
-  const data = getData();
-
-  const executionReview =
-    document.getElementById("executionReview");
-
-  if (!executionReview) {
-    return;
-  }
-
-  executionReview.innerHTML +=
-    "<div class='metric'><strong>Debug Logs</strong></div>" +
-    "<pre style='white-space:pre-wrap;font-size:12px;'>" +
-    JSON.stringify(data.dailyLogs, null, 2) +
-    "</pre>";
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  debugDailyLogs();
-});
-// =====================
-// V4.2 FIX DAILY COMPLETION SAVE
-// =====================
-
-function fixedSaveTodayCompletion() {
-  const data = getData();
-
-  const todayKey = new Date()
-    .toISOString()
-    .slice(0, 10);
+  const todayKey = getTodayKey();
 
   const updatedLog = {
     date: todayKey,
@@ -1109,15 +825,110 @@ function fixedSaveTodayCompletion() {
 
   saveData(data);
 
-  alert("Daily completion saved.");
-
   renderCompletionReview();
+  renderReview();
+
+  alert("Daily completion saved.");
+}
+
+function renderDailyCompletion() {
+  const log = getTodayLog();
+
+  const trainingCompletion =
+    document.getElementById("trainingCompletion");
+
+  const mobilityCompletion =
+    document.getElementById("mobilityCompletion");
+
+  const faithCompletion =
+    document.getElementById("faithCompletion");
+
+  const familyCompletion =
+    document.getElementById("familyCompletion");
+
+  const saveCompletionButton =
+    document.getElementById("saveCompletionButton");
+
+  if (
+    !trainingCompletion ||
+    !mobilityCompletion ||
+    !faithCompletion ||
+    !familyCompletion ||
+    !saveCompletionButton
+  ) {
+    return;
+  }
+
+  trainingCompletion.value = log.training;
+  mobilityCompletion.value = log.mobility;
+  faithCompletion.value = log.faith;
+  familyCompletion.value = log.family;
+
+  saveCompletionButton.onclick = saveTodayCompletion;
+}
+
+function calculateCompletionRate(type) {
+  const data = getData();
+
+  const logs = data.dailyLogs.filter(
+    log => log[type] && log[type] !== "Pending"
+  );
+
+  if (logs.length === 0) {
+    return "No data";
+  }
+
+  const score = logs.reduce((total, log) => {
+    if (log[type] === "Complete") {
+      return total + 1;
+    }
+
+    if (log[type] === "Modified") {
+      return total + 0.5;
+    }
+
+    return total;
+  }, 0);
+
+  return Math.round((score / logs.length) * 100) + "%";
+}
+
+function renderCompletionReview() {
+  const executionReview =
+    document.getElementById("executionReview");
+
+  if (!executionReview) {
+    return;
+  }
+
+  executionReview.innerHTML =
+    "<div class='metric'>Training: " +
+    calculateCompletionRate("training") +
+    "</div>" +
+    "<div class='metric'>Mobility: " +
+    calculateCompletionRate("mobility") +
+    "</div>" +
+    "<div class='metric'>Faith: " +
+    calculateCompletionRate("faith") +
+    "</div>" +
+    "<div class='metric'>Family: " +
+    calculateCompletionRate("family") +
+    "</div>";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const saveButton = document.getElementById("saveCompletionButton");
-
-  if (saveButton) {
-    saveButton.onclick = fixedSaveTodayCompletion;
-  }
+  renderDailyCompletion();
+  renderCompletionReview();
+  renderReview();
 });
+
+const reviewButton = document.querySelector(
+  '[data-screen="reviewScreen"]'
+);
+
+if (reviewButton) {
+  reviewButton.addEventListener("click", function () {
+    renderReview();
+    renderCompletionReview();
+  });
+}
