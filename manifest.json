@@ -1,10 +1,11 @@
 {
-  "name": "Stewardship OS",
+  "name": "Stewardship OS V5",
   "short_name": "Stewardship OS",
+  "description": "Today's Toil. You Reap What You Sow.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#F6F3EA",
-  "theme_color": "#14213D",
+  "background_color": "#F7F1E6",
+  "theme_color": "#101B33",
   "icons": [
     {
       "src": "icon.svg",
