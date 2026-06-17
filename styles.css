@@ -332,3 +332,64 @@ color:#8B5A16;
 grid-template-columns:1fr;
 }
 }
+.standardBadge{
+background:#F4EFE5;
+border:1px solid #E3D6C1;
+border-radius:18px;
+padding:16px;
+text-align:center;
+}
+
+.standardBadge span,
+.fieldCard span{
+display:block;
+font-size:11px;
+font-weight:800;
+text-transform:uppercase;
+letter-spacing:.12em;
+color:#A87832;
+margin-bottom:8px;
+}
+
+.standardBadge strong{
+display:block;
+font-size:30px;
+line-height:1;
+text-transform:uppercase;
+letter-spacing:.04em;
+}
+
+.standard-base strong{
+color:#667085;
+}
+
+.standard-bronze strong{
+color:#A87832;
+}
+
+.standard-silver strong{
+color:#8B95A7;
+}
+
+.standard-gold strong{
+color:#C9A227;
+}
+
+.standard-beacon strong{
+color:#101B33;
+}
+
+.fieldCard{
+background:#EDF3E8;
+border:1px solid #C8D8BE;
+border-radius:18px;
+padding:16px;
+text-align:center;
+}
+
+.fieldCard strong{
+display:block;
+font-size:24px;
+line-height:1.1;
+color:#31472B;
+}
