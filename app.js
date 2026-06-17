@@ -347,8 +347,17 @@ function renderToday() {
       return `<div class="metric"><strong>${zone}</strong> <span class="readinessPill ${readiness.className}">${readiness.label}</span></div>`;
     }).join("");
 
-  document.getElementById("currentStandard").innerHTML = `<div class="standard standard-${standard.toLowerCase()}">${standard}</div>`;
-  document.getElementById("fieldToImprove").innerHTML = `<div class="metric"><strong>${getFieldToImprove()}</strong></div>`;
+  document.getElementById("currentStandard").innerHTML =
+  `<div class="standardBadge standard-${standard.toLowerCase()}">
+    <span>Current Standard</span>
+    <strong>${standard}</strong>
+  </div>`;
+
+document.getElementById("fieldToImprove").innerHTML =
+  `<div class="fieldCard">
+    <span>Field To Improve</span>
+    <strong>${getFieldToImprove()}</strong>
+  </div>`;
 }
 
 function getTodaysGoal(exercise) {
