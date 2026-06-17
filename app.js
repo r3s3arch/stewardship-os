@@ -430,20 +430,12 @@ function renderHome() {
  const standard =
   calculateStandard();
 
-const crest = {
-  Base: "○",
-  Bronze: "🛡",
-  Silver: "⚔",
-  Gold: "👑",
-  Spartan: "🏛"
-};
-
 document.getElementById("currentStandard").innerHTML =
-  "<div class='metric'><strong>" +
-  crest[standard] +
-  " " +
-  standard +
-  "</strong></div>";
+  "<div class='metric standard-" +
+  standard.toLowerCase() +
+  "'>" +
+  standard.toUpperCase() +
+  "</div>";
 
 document.getElementById("weakestGap").innerHTML =
   "<div class='metric'>" +
