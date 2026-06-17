@@ -404,10 +404,23 @@ function renderHome() {
   getRecoveryStatus("Mobility") +
   "</div>";
 
-  document.getElementById("currentStandard").innerHTML =
-  "<div class='metric'>" +
-  calculateStandard() +
-  "</div>";
+ const standard =
+  calculateStandard();
+
+const crest = {
+  Base: "○",
+  Bronze: "🛡",
+  Silver: "⚔",
+  Gold: "👑",
+  Spartan: "🏛"
+};
+
+document.getElementById("currentStandard").innerHTML =
+  "<div class='metric'><strong>" +
+  crest[standard] +
+  " " +
+  standard +
+  "</strong></div>";
 
 document.getElementById("weakestGap").innerHTML =
   "<div class='metric'>" +
