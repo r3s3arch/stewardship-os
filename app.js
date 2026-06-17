@@ -367,8 +367,10 @@ function renderHome() {
   calculateStandard() +
   "</div>";
 
-  document.getElementById("weakestGap").innerHTML =
-    "<div class='metric'>Pull Ups</div>";
+document.getElementById("weakestGap").innerHTML =
+  "<div class='metric'>" +
+  calculateWeakestGap() +
+  "</div>";
 
   document.getElementById("nextBestAction").innerHTML =
     "<div class='metric'>Execute today’s assignment.</div>";
