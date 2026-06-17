@@ -344,7 +344,14 @@ function renderToday() {
   document.getElementById("readinessList").innerHTML = ZONES
     .map(zone => {
       const readiness = getReadiness(zone);
-      return `<div class="metric"><strong>${zone}</strong> <span class="readinessPill ${readiness.className}">${readiness.label}</span></div>`;
+     return `
+  <div class="readinessRow">
+    <strong>${zone}</strong>
+    <span class="readinessPill ${readiness.className}">
+      ${readiness.label}
+    </span>
+  </div>
+`;
     }).join("");
 
   document.getElementById("currentStandard").innerHTML =
