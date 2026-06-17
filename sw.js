@@ -1,4 +1,4 @@
-const CACHE_NAME = "stewardship-os-v43-live-save-fix";
+const CACHE_NAME = "stewardship-os-v43-syntax-repair";
 
 const FILES_TO_CACHE = [
   "./",
