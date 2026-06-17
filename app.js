@@ -444,11 +444,21 @@ const todaysGoal =
     <p class="helpText"><strong>Purpose:</strong> ${exercise.purpose}</p>
     <p class="helpText"><strong>Why It Matters:</strong> ${exercise.why}</p>
     <ul class="cues">${exercise.instructions.map(cue => `<li>${cue}</li>`).join("")}</ul>
-    <div class="metric"><strong>Last:</strong> ${latestText}</div>
-    <div class="metric"><strong>Best:</strong> ${bestText}</div>
-    <div class="metric">
-  <strong>Today's Goal:</strong>
-  ${todaysGoal}
+    <div class="resultGrid">
+  <div class="resultCard">
+    <span>Last</span>
+    <strong>${latestText}</strong>
+  </div>
+
+  <div class="resultCard">
+    <span>Best</span>
+    <strong>${bestText}</strong>
+  </div>
+
+  <div class="resultCard goalCard">
+    <span>Today's Goal</span>
+    <strong>${todaysGoal}</strong>
+  </div>
 </div>
     <div class="metric"><strong>Substitutions:</strong> ${exercise.substitutions.length ? exercise.substitutions.join(", ") : "None"}</div>
   `;
