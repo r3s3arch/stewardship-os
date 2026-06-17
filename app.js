@@ -712,6 +712,34 @@ function calculateStandard() {
 
 }
 
+You’re right. It’s functioning, but it’s too primitive.
+
+Right now calculateWeakestGap() only checks:
+
+Pull Ups
+Dead Hang
+
+So even though recovery is showing Push, Pull, Legs, Hinge, Carry, and Mobility, Weakest Gap is still using the old two metric standard.
+
+Fix direction
+
+Weakest Gap should compare:
+
+Pull Ups
+Dead Hang
+Farmer Carry
+Incline Press
+Front Squat
+RDL
+
+For now, the safest next improvement is to add Farmer Carry because it already has a simple standard like Dead Hang.
+
+V4.7 Weakest Gap Engine 2.0
+File
+app.js
+Find
+function calculateWeakestGap() {
+Replace the entire function with:
 function calculateWeakestGap() {
 
   const pullUps =
@@ -720,12 +748,19 @@ function calculateWeakestGap() {
   const deadHang =
     getBestDuration("Dead Hang");
 
+  const farmerCarry =
+    getBestDuration("Farmer Carry");
+
   if (pullUps < 10) {
     return "Pull Ups";
   }
 
   if (deadHang < 60) {
     return "Dead Hang";
+  }
+
+  if (farmerCarry < 60) {
+    return "Farmer Carry";
   }
 
   if (pullUps < 15) {
@@ -736,6 +771,10 @@ function calculateWeakestGap() {
     return "Dead Hang";
   }
 
+  if (farmerCarry < 90) {
+    return "Farmer Carry";
+  }
+
   if (pullUps < 20) {
     return "Pull Ups";
   }
@@ -744,10 +783,14 @@ function calculateWeakestGap() {
     return "Dead Hang";
   }
 
+  if (farmerCarry < 120) {
+    return "Farmer Carry";
+  }
+
   return "Strength Load";
 
 }
-
+  
 function renderReview() {
 
   document.getElementById(
