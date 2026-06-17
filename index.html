@@ -72,14 +72,25 @@
     <div class="card" id="setLoggerCard">
       <h3>Log Working Set</h3>
       <div class="formGrid">
-        <input id="setWeight" placeholder="Weight / Load">
-        <input id="setReps" placeholder="Reps">
-        <input id="setDuration" placeholder="Duration">
-        <select id="setFailure">
-          <option value="true">Failure: Yes</option>
-          <option value="false">Failure: No</option>
-        </select>
-      </div>
+
+  <div id="weightGroup">
+    <input id="setWeight" placeholder="Weight / Load">
+  </div>
+
+  <div id="repsGroup">
+    <input id="setReps" placeholder="Reps">
+  </div>
+
+  <div id="durationGroup">
+    <input id="setDuration" placeholder="Duration">
+  </div>
+
+  <select id="setFailure">
+    <option value="true">Failure: Yes</option>
+    <option value="false">Failure: No</option>
+  </select>
+
+</div>
       <input id="setNotes" placeholder="Notes">
       <button id="saveSetButton">Save Set</button>
       <div id="setProgress" class="progressBox"></div>
