@@ -227,8 +227,19 @@ button{
   padding:14px 3px calc(14px + env(safe-area-inset-bottom));
   font-size:11px;
   margin:0;
+  transition:all .2s ease;
 }
-.bottomNav button.activeNav{color:var(--navy);background:#F1E7D7;}
+
+.bottomNav button.activeNav{
+  color:#101B33;
+  background:#F4EFE5;
+  border-top:3px solid #A87832;
+  font-weight:700;
+}
+
+.bottomNav button:hover{
+  background:#F8F4EC;
+}
 
 @media(max-width:640px){
   main{padding:14px;}
