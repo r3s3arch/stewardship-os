@@ -276,8 +276,9 @@ color:#101B33;
 
 .goalCard{
 background:#FFF6E3;
-border-color:#C9A227;
-box-shadow:0 6px 18px rgba(168,120,50,.12);
+border:2px solid #C9A227;
+box-shadow:0 10px 28px rgba(168,120,50,.18);
+transform:scale(1.03);
 }
 
 @media(max-width:640px){
