@@ -229,3 +229,29 @@ border-radius:20px;
 }
 
 }
+.recovery-ready{
+background:#E8F5E9;
+color:#228B22;
+padding:6px 10px;
+border-radius:999px;
+display:inline-block;
+font-weight:700;
+}
+
+.recovery-warning{
+background:#FFF8E1;
+color:#C9A227;
+padding:6px 10px;
+border-radius:999px;
+display:inline-block;
+font-weight:700;
+}
+
+.recovery-danger{
+background:#FDECEC;
+color:#B22222;
+padding:6px 10px;
+border-radius:999px;
+display:inline-block;
+font-weight:700;
+}
