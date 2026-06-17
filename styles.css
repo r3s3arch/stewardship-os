@@ -138,14 +138,45 @@ margin-bottom:6px;
 
 .zoneRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
 .zonePill,
+Now let's make the Readiness section feel alive instead of looking like a list.
+
+Edit 1 — Readiness Pills
+File
+styles.css
+Search
+.readinessPill
+
+If it exists, replace the entire block.
+
+If it doesn't exist, add this near the bottom:
+
 .readinessPill{
-  display:inline-block;
-  padding:6px 10px;
-  border-radius:999px;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  font-weight:800;
-  font-size:12px;
-  letter-spacing:.3px;
+display:inline-block;
+padding:6px 12px;
+border-radius:999px;
+font-size:12px;
+font-weight:700;
+margin-left:8px;
+}
+
+.readinessPill.ready{
+background:#E6F4EA;
+color:#1F6B3A;
+}
+
+.readinessPill.soon{
+background:#FFF4D6;
+color:#A87832;
+}
+
+.readinessPill.tomorrow{
+background:#FBE8D4;
+color:#B35C1E;
+}
+
+.readinessPill.recovering{
+background:#FDE7E7;
+color:#B22222;
 }
 .zonePill{background:rgba(255,255,255,.14);color:#F8E9C5;border:1px solid rgba(255,255,255,.18);}
 
