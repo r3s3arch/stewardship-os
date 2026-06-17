@@ -272,7 +272,7 @@ function getNextAction() {
     };
   }
 
-  return { status: "status-green", title: "Train Today's Toil", detail: "Warm up. One working set. True failure." };
+  return { status: "status-green", title: "Embrace the Toil", detail: "Warm up. One working set. True failure." };
 }
 
 function getBestByExercise(exerciseName) {
