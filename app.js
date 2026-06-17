@@ -386,7 +386,7 @@ function saveBodyMetrics() {
   alert("Body metrics saved.");
 
 }
-
+// V4.3 Recovery Group Logging Verified
 function saveExerciseResult() {
 
   const data = getData();
