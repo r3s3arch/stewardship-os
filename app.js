@@ -351,6 +351,33 @@ function renderToday() {
   document.getElementById("fieldToImprove").innerHTML = `<div class="metric"><strong>${getFieldToImprove()}</strong></div>`;
 }
 
+function getTodaysGoal(exercise) {
+
+  const best =
+    getBestByExercise(exercise.name);
+
+  if (
+    best.bestReps === 0 &&
+    best.bestDuration === 0
+  ) {
+    return "Establish Baseline";
+  }
+
+  if (
+    exercise.trackingType.includes("Reps")
+  ) {
+    return (best.bestReps + 1) + " reps";
+  }
+
+  if (
+    exercise.trackingType.includes("Duration")
+  ) {
+    return (best.bestDuration + 5) + " sec";
+  }
+
+  return "Improve Previous Result";
+
+}
 function renderTrain() {
   const data = getData();
   const day = getCurrentDay();
@@ -374,7 +401,8 @@ function renderTrain() {
   const best = getBestByExercise(exercise.name);
   const latestText = best.latest ? formatResult(best.latest) : "No previous result";
   const bestText = formatBest(exercise, best);
-
+const todaysGoal =
+  getTodaysGoal(exercise);
   document.getElementById("currentExerciseDetail").innerHTML = `
     <div class="eyebrow">${exercise.zone} · ${exercise.trackingType}</div>
     <h2 class="exerciseTitle">${exercise.name}</h2>
@@ -383,6 +411,10 @@ function renderTrain() {
     <ul class="cues">${exercise.instructions.map(cue => `<li>${cue}</li>`).join("")}</ul>
     <div class="metric"><strong>Last:</strong> ${latestText}</div>
     <div class="metric"><strong>Best:</strong> ${bestText}</div>
+    <div class="metric">
+  <strong>Today's Goal:</strong>
+  ${todaysGoal}
+</div>
     <div class="metric"><strong>Substitutions:</strong> ${exercise.substitutions.length ? exercise.substitutions.join(", ") : "None"}</div>
   `;
 }
