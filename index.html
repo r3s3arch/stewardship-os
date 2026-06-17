@@ -1,10 +1,209 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#14213D"><link rel="manifest" href="manifest.json"><link rel="stylesheet" href="styles.css"><title>Stewardship OS</title></head><body>
-<header><div><h1>Stewardship OS</h1><p>ἐν τῷ ἔργῳ, ὁ Λόγος · In the Work, the Word</p></div><button id="settingsBtn">⚙</button></header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#101B33">
+  <title>Stewardship OS V5</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="appHeader">
+  <div>
+    <h1>Stewardship OS</h1>
+    <p>Today's Toil</p>
+    <span>You Reap What You Sow</span>
+  </div>
+</header>
+
 <main>
-<section id="home" class="screen active"><div class="hero card"><span>COMMAND CENTER</span><h2>Today’s Stewardship Brief</h2><p>Orders. Execution. Review. Improvement. Repeat.</p></div><div class="grid"><div class="card kpi"><small>Personal</small><strong id="personalScore">—</strong></div><div class="card kpi"><small>Orchard</small><strong id="orchardScore">—</strong></div><div class="card kpi"><small>Lantern</small><strong id="lanternScore">—</strong></div><div class="card kpi"><small>Beacon</small><strong id="beaconScore">—</strong></div></div><div class="card"><h3>Today’s Orders</h3><div id="todayOrders"></div></div><div class="card warning"><h3>Next Best Action</h3><p id="nextAction">Execute today.</p></div></section>
-<section id="personal" class="screen"><div class="hero card"><span>PERSONAL OS</span><h2 id="personalTitle"></h2><p id="personalMission"></p></div><div class="card"><h3>Physical Assignment</h3><div id="physicalAssignment"></div></div><div class="card"><h3>Daily Log</h3><label>Date <input id="personalDate" type="date"></label><label>Physical <select id="physical"><option>Pending</option><option>Complete</option><option>Modified</option><option>Missed</option></select></label><label>Faith <select id="faith"><option>Pending</option><option>Complete</option><option>Modified</option><option>Missed</option></select></label><label>Family <select id="family"><option>Pending</option><option>Complete</option><option>Modified</option><option>Missed</option></select></label><label>Sleep <input id="sleep" type="number" step=".25"></label><label>Weight <input id="weight" type="number" step=".1"></label><button id="savePersonal" class="primary">Save Personal Log</button></div></section>
-<section id="orchard" class="screen"><div class="hero card"><span>THE ORCHARD</span><h2>Observe · Build · Grow · Steward</h2><p>Compost, water, keyhole gardens, food forest, and observation.</p></div><div class="card"><h3>Current Quest</h3><div id="orchardQuest"></div></div><div class="card"><h3>Observation Log</h3><label>Date <input id="obsDate" type="date"></label><label>Zone <select id="obsZone"><option>Compost Core</option><option>Keyhole Garden</option><option>Food Forest Strip</option><option>Wild Observation</option></select></label><label>Type <select id="obsType"><option>Soil</option><option>Water</option><option>Plant Growth</option><option>Wildlife</option><option>Pollinators</option><option>Pest/Disease</option><option>Harvest</option></select></label><label>Note <input id="obsNote" maxlength="140"></label><button id="saveObservation" class="primary">Save Observation</button></div><div class="card"><h3>Recent Observations</h3><div id="obsList"></div></div></section>
-<section id="lantern" class="screen"><div class="hero card"><span>THE LANTERN</span><h2>Household Operating System</h2><p>Faithful household execution.</p></div><div class="card"><h3>Family Brief</h3><div id="familyBrief"></div></div><div class="card"><h3>Household Task</h3><label>Date <input id="taskDate" type="date"></label><label>Category <select id="taskCategory"><option>Faith</option><option>Education</option><option>Property</option><option>Finance</option><option>Health</option><option>Service</option><option>Preparedness</option></select></label><label>Task <input id="taskText" maxlength="140"></label><label>Status <select id="taskStatus"><option>Pending</option><option>Complete</option><option>Modified</option><option>Missed</option></select></label><button id="saveTask" class="primary">Save Household Task</button></div><div class="card"><h3>Household Board</h3><div id="taskList"></div></div></section>
-<section id="beacon" class="screen"><div class="hero card"><span>THE BEACON</span><h2>Legacy Record</h2><p>Preserve lessons, milestones, stories, and standards.</p></div><div class="card"><h3>Rule of Life</h3><ul id="ruleList"></ul></div><div class="card"><h3>Legacy Entry</h3><label>Date <input id="legacyDate" type="date"></label><label>Category <select id="legacyCategory"><option>Faith</option><option>Family</option><option>Physical</option><option>Land</option><option>Leadership</option><option>Service</option></select></label><label>Entry <input id="legacyText" maxlength="160"></label><button id="saveLegacy" class="primary">Save Legacy Entry</button></div><div class="card"><h3>Legacy Timeline</h3><div id="legacyList"></div></div></section>
-<section id="settings" class="screen"><div class="card"><h2>Settings</h2><label>Personal Cycle Day <select id="cycleDay"></select></label><label>Property Stage <select id="propertyStage"><option>Raw Land</option><option>Existing Yard</option><option>Beginning Garden</option><option>Established Garden</option><option>Food Forest</option><option>Homestead</option></select></label><label>Target Bodyweight <input id="targetWeight" type="number"></label><label>Macro Goal <select id="macroGoal"><option>Cut</option><option>Maintain</option><option>Gain</option></select></label><button id="saveSettings" class="primary">Save Settings</button></div><div class="card"><h3>Target Macros</h3><div id="macroReport"></div></div><div class="card"><h3>Data</h3><button id="exportData">Export Backup</button><button id="resetData" class="danger">Reset Current Data</button><button id="hardReset" class="danger">Hard Reset Cache + Old Data</button></div></section>
-</main><nav><button data-screen="home" class="active">Home</button><button data-screen="personal">Personal</button><button data-screen="orchard">Orchard</button><button data-screen="lantern">Lantern</button><button data-screen="beacon">Beacon</button></nav><script src="app.js"></script></body></html>
+  <section id="todayScreen" class="screen active">
+    <div class="hero card-emphasis">
+      <div class="eyebrow">Today's Toil</div>
+      <h2 id="todayTitle">Day 1</h2>
+      <p id="todayMission">Loading...</p>
+      <div id="todayZones" class="zoneRow"></div>
+    </div>
+
+    <div class="card actionCard">
+      <h3>Next Action</h3>
+      <div id="nextAction"></div>
+    </div>
+
+    <div class="card">
+      <h3>Today's Toil</h3>
+      <div id="todayExerciseList"></div>
+    </div>
+
+    <div class="card">
+      <h3>Readiness</h3>
+      <div id="readinessList"></div>
+    </div>
+
+    <div class="splitGrid">
+      <div class="card">
+        <h3>Current Standard</h3>
+        <div id="currentStandard"></div>
+      </div>
+      <div class="card">
+        <h3>Field To Improve</h3>
+        <div id="fieldToImprove"></div>
+      </div>
+    </div>
+
+    <div class="card buttonStack">
+      <button id="goTrainButton">Begin Today's Toil</button>
+      <button id="printTodayButton" class="secondaryButton">Print Today's Sheet</button>
+    </div>
+  </section>
+
+  <section id="trainScreen" class="screen">
+    <div class="screenTitle">
+      <span class="eyebrow">Train</span>
+      <h2 id="trainDayTitle">Today's Toil</h2>
+    </div>
+
+    <div class="card" id="trainCard">
+      <div id="currentExerciseDetail"></div>
+    </div>
+
+    <div class="card" id="setLoggerCard">
+      <h3>Log Working Set</h3>
+      <div class="formGrid">
+        <input id="setWeight" placeholder="Weight / Load">
+        <input id="setReps" placeholder="Reps">
+        <input id="setDuration" placeholder="Duration">
+        <select id="setFailure">
+          <option value="true">Failure: Yes</option>
+          <option value="false">Failure: No</option>
+        </select>
+      </div>
+      <input id="setNotes" placeholder="Notes">
+      <button id="saveSetButton">Save Set</button>
+      <div id="setProgress" class="progressBox"></div>
+    </div>
+
+    <div class="card buttonStack">
+      <button id="previousExerciseButton" class="secondaryButton">Previous Exercise</button>
+      <button id="nextExerciseButton" class="secondaryButton">Next Exercise</button>
+      <button id="completeDayButton">Complete Today's Toil</button>
+    </div>
+  </section>
+
+  <section id="reviewScreen" class="screen">
+    <div class="screenTitle">
+      <span class="eyebrow">Review</span>
+      <h2>What Has Been Sown</h2>
+    </div>
+
+    <div class="card">
+      <h3>Strength</h3>
+      <div id="strengthReview"></div>
+    </div>
+
+    <div class="card">
+      <h3>Consistency</h3>
+      <div id="consistencyReview"></div>
+    </div>
+
+    <div class="card">
+      <h3>Body</h3>
+      <div id="bodyReview"></div>
+    </div>
+  </section>
+
+  <section id="libraryScreen" class="screen">
+    <div class="screenTitle">
+      <span class="eyebrow">Library</span>
+      <h2>Tools For The Toil</h2>
+    </div>
+
+    <div class="card">
+      <h3>Add Exercise</h3>
+      <input id="newExerciseName" placeholder="Exercise Name">
+      <select id="newExerciseZone">
+        <option>Push</option>
+        <option>Pull</option>
+        <option>Legs</option>
+        <option>Hinge</option>
+        <option>Carry</option>
+        <option>Core</option>
+        <option>Mobility</option>
+        <option>Recovery</option>
+      </select>
+      <input id="newExerciseEquipment" placeholder="Equipment">
+      <select id="newExerciseTracking">
+        <option>Weight + Reps</option>
+        <option>Reps</option>
+        <option>Duration</option>
+        <option>Weight + Duration</option>
+      </select>
+      <input id="newExercisePurpose" placeholder="Purpose">
+      <button id="addExerciseButton">Add Exercise</button>
+    </div>
+
+    <div class="card">
+      <h3>Exercise Library</h3>
+      <div id="exerciseLibraryList"></div>
+    </div>
+  </section>
+
+  <section id="stewardshipScreen" class="screen">
+    <div class="screenTitle">
+      <span class="eyebrow">Stewardship</span>
+      <h2>Keep The House In Order</h2>
+    </div>
+
+    <div class="card">
+      <h3>Body Log</h3>
+      <div class="formGrid">
+        <input id="bodyWeight" placeholder="Weight">
+        <input id="waistMeasurement" placeholder="Waist">
+        <input id="sleepHours" placeholder="Sleep Hours">
+      </div>
+      <button id="saveBodyButton">Save Body Metrics</button>
+    </div>
+
+    <div class="card">
+      <h3>Daily Completion</h3>
+      <select id="dailyCompletionStatus">
+        <option>Pending</option>
+        <option>Completed</option>
+        <option>Minimum Day</option>
+        <option>Modified</option>
+        <option>Missed</option>
+      </select>
+      <button id="saveCompletionButton">Save Completion</button>
+    </div>
+
+    <div class="card">
+      <h3>Cycle</h3>
+      <div id="cycleControls"></div>
+      <button id="advanceCycleButton">Advance Cycle Day</button>
+    </div>
+
+    <div class="card">
+      <h3>Backup</h3>
+      <div class="buttonStack">
+        <button id="exportButton">Export Backup</button>
+        <button id="importButton" class="secondaryButton">Import Backup</button>
+        <input id="importFile" type="file" accept="application/json" hidden>
+        <button id="resetButton" class="dangerButton">Hard Reset</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="bottomNav">
+  <button data-screen="todayScreen">Today</button>
+  <button data-screen="trainScreen">Train</button>
+  <button data-screen="reviewScreen">Review</button>
+  <button data-screen="libraryScreen">Library</button>
+  <button data-screen="stewardshipScreen">Stewardship</button>
+</nav>
+
+<script src="app.js"></script>
+</body>
+</html>
