@@ -167,3 +167,18 @@ font-size:20px;
 }
 
 }
+
+.status-green{
+color:#228B22;
+font-weight:700;
+}
+
+.status-yellow{
+color:#C9A227;
+font-weight:700;
+}
+
+.status-red{
+color:#B22222;
+font-weight:700;
+}
