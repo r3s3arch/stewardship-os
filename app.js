@@ -250,6 +250,21 @@ function renderList(items) {
     .join("");
 
 }
+function getRecoveryThreshold(group) {
+
+  const thresholds = {
+    Push: 48,
+    Pull: 48,
+    Legs: 72,
+    Hinge: 72,
+    Carry: 24,
+    Mobility: 12
+  };
+
+  return thresholds[group] || 48;
+
+}
+
 function getRecoveryStatus(group) {
 
   const data = getData();
@@ -269,11 +284,8 @@ function getRecoveryStatus(group) {
         new Date(b.date) - new Date(a.date)
     );
 
-  const lastLog =
-    sortedLogs[0];
-
   const lastDate =
-    new Date(lastLog.date);
+    new Date(sortedLogs[0].date);
 
   const now =
     new Date();
@@ -283,13 +295,25 @@ function getRecoveryStatus(group) {
       (now - lastDate) / 1000 / 60 / 60
     );
 
-  if (hoursSince >= 72) {
+  const threshold =
+    getRecoveryThreshold(group);
+
+  const hoursRemaining =
+    threshold - hoursSince;
+
+  if (hoursRemaining <= 0) {
     return "Ready";
   }
 
-  return "Recovering " +
-    hoursSince +
-    " hrs";
+  if (hoursRemaining <= 12) {
+    return "Ready Soon";
+  }
+
+  if (hoursRemaining <= 24) {
+    return "Ready Tomorrow";
+  }
+
+  return "Recovering";
 
 }
 function renderHome() {
