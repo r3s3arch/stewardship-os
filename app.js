@@ -316,6 +316,48 @@ function getRecoveryStatus(group) {
   return "Recovering";
 
 }
+
+function getNextBestAction() {
+
+  const groups = [
+    "Push",
+    "Pull",
+    "Legs",
+    "Hinge",
+    "Carry",
+    "Mobility"
+  ];
+
+  const recoveringGroups =
+    groups.filter(
+      group =>
+        getRecoveryStatus(group) !== "Ready"
+    );
+
+  if (recoveringGroups.length === 0) {
+    return {
+      status: "status-green",
+      title: "All Systems Ready",
+      action: "Train Scheduled Session"
+    };
+  }
+
+  if (recoveringGroups.length === 1) {
+    return {
+      status: "status-yellow",
+      title: recoveringGroups[0] + " Recovering",
+      action: "Train Around Limitation"
+    };
+  }
+
+  return {
+    status: "status-red",
+    title: "Multiple Systems Recovering",
+    action: "Minimum Day Recommended"
+  };
+
+}
+
 function renderHome() {
 
   const data = getData();
@@ -372,8 +414,17 @@ document.getElementById("weakestGap").innerHTML =
   calculateWeakestGap() +
   "</div>";
 
-  document.getElementById("nextBestAction").innerHTML =
-    "<div class='metric'>Execute today’s assignment.</div>";
+ const nextAction = getNextBestAction();
+
+document.getElementById("nextBestAction").innerHTML =
+  "<div class='metric " +
+  nextAction.status +
+  "'><strong>" +
+  nextAction.title +
+  "</strong></div>" +
+  "<div class='metric'>" +
+  nextAction.action +
+  "</div>";
 
 }
 
