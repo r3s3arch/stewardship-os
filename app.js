@@ -363,7 +363,9 @@ function renderHome() {
   "</div>";
 
   document.getElementById("currentStandard").innerHTML =
-    "<div class='metric'>Base</div>";
+  "<div class='metric'>" +
+  calculateStandard() +
+  "</div>";
 
   document.getElementById("weakestGap").innerHTML =
     "<div class='metric'>Pull Ups</div>";
