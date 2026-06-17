@@ -250,7 +250,48 @@ function renderList(items) {
     .join("");
 
 }
+function getRecoveryStatus(group) {
 
+  const data = getData();
+
+  const matchingLogs =
+    data.trainingLogs.filter(
+      log => log.group === group
+    );
+
+  if (matchingLogs.length === 0) {
+    return "Ready";
+  }
+
+  const sortedLogs =
+    matchingLogs.sort(
+      (a, b) =>
+        new Date(b.date) - new Date(a.date)
+    );
+
+  const lastLog =
+    sortedLogs[0];
+
+  const lastDate =
+    new Date(lastLog.date);
+
+  const now =
+    new Date();
+
+  const hoursSince =
+    Math.floor(
+      (now - lastDate) / 1000 / 60 / 60
+    );
+
+  if (hoursSince >= 72) {
+    return "Ready";
+  }
+
+  return "Recovering " +
+    hoursSince +
+    " hrs";
+
+}
 function renderHome() {
 
   const data = getData();
@@ -278,9 +319,24 @@ function renderHome() {
     "<div class='metric'>" + day.family + "</div>";
 
   document.getElementById("recoveryStatus").innerHTML =
-    "<div class='metric'>Upper: Ready</div>" +
-    "<div class='metric'>Lower: Ready</div>" +
-    "<div class='metric'>Carry: Ready</div>";
+  "<div class='metric'>Push: " +
+  getRecoveryStatus("Push") +
+  "</div>" +
+  "<div class='metric'>Pull: " +
+  getRecoveryStatus("Pull") +
+  "</div>" +
+  "<div class='metric'>Legs: " +
+  getRecoveryStatus("Legs") +
+  "</div>" +
+  "<div class='metric'>Hinge: " +
+  getRecoveryStatus("Hinge") +
+  "</div>" +
+  "<div class='metric'>Carry: " +
+  getRecoveryStatus("Carry") +
+  "</div>" +
+  "<div class='metric'>Mobility: " +
+  getRecoveryStatus("Mobility") +
+  "</div>";
 
   document.getElementById("currentStandard").innerHTML =
     "<div class='metric'>Base</div>";
