@@ -389,13 +389,48 @@ function renderTrain() {
   document.getElementById("trainDayTitle").textContent = `Day ${day.day} · ${day.title}`;
 
   const exercise = exercises[index];
+const weightGroup =
+  document.getElementById("weightGroup");
 
+const repsGroup =
+  document.getElementById("repsGroup");
+
+const durationGroup =
+  document.getElementById("durationGroup");
+
+if (weightGroup) {
+  weightGroup.style.display = "none";
+}
+
+if (repsGroup) {
+  repsGroup.style.display = "none";
+}
+
+if (durationGroup) {
+  durationGroup.style.display = "none";
+}
   if (!exercise) {
     document.getElementById("currentExerciseDetail").innerHTML = `<div class="metric">No exercises assigned today.</div>`;
     document.getElementById("setLoggerCard").style.display = "none";
     return;
   }
+if (
+  exercise.trackingType.includes("Weight")
+) {
+  weightGroup.style.display = "block";
+}
 
+if (
+  exercise.trackingType.includes("Reps")
+) {
+  repsGroup.style.display = "block";
+}
+
+if (
+  exercise.trackingType.includes("Duration")
+) {
+  durationGroup.style.display = "block";
+}
   document.getElementById("setLoggerCard").style.display = "block";
 
   const best = getBestByExercise(exercise.name);
