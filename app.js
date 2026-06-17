@@ -357,7 +357,42 @@ function getNextBestAction() {
   };
 
 }
+function getRecoveryClass(status) {
 
+  if (status === "Ready") {
+    return "recovery-ready";
+  }
+
+  if (
+    status === "Ready Soon" ||
+    status === "Ready Tomorrow"
+  ) {
+    return "recovery-warning";
+  }
+
+  return "recovery-danger";
+
+}
+
+function renderRecoveryMetric(group) {
+
+  const status =
+    getRecoveryStatus(group);
+
+  return (
+    "<div class='metric'>" +
+    "<strong>" +
+    group +
+    ":</strong> " +
+    "<span class='" +
+    getRecoveryClass(status) +
+    "'>" +
+    status +
+    "</span>" +
+    "</div>"
+  );
+
+}
 function renderHome() {
 
   const data = getData();
@@ -385,24 +420,12 @@ function renderHome() {
     "<div class='metric'>" + day.family + "</div>";
 
   document.getElementById("recoveryStatus").innerHTML =
-  "<div class='metric'>Push: " +
-  getRecoveryStatus("Push") +
-  "</div>" +
-  "<div class='metric'>Pull: " +
-  getRecoveryStatus("Pull") +
-  "</div>" +
-  "<div class='metric'>Legs: " +
-  getRecoveryStatus("Legs") +
-  "</div>" +
-  "<div class='metric'>Hinge: " +
-  getRecoveryStatus("Hinge") +
-  "</div>" +
-  "<div class='metric'>Carry: " +
-  getRecoveryStatus("Carry") +
-  "</div>" +
-  "<div class='metric'>Mobility: " +
-  getRecoveryStatus("Mobility") +
-  "</div>";
+  renderRecoveryMetric("Push") +
+  renderRecoveryMetric("Pull") +
+  renderRecoveryMetric("Legs") +
+  renderRecoveryMetric("Hinge") +
+  renderRecoveryMetric("Carry") +
+  renderRecoveryMetric("Mobility");
 
  const standard =
   calculateStandard();
