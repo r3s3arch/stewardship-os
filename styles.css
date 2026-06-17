@@ -136,19 +136,12 @@ margin-bottom:6px;
 .metric:last-child{border-bottom:none;}
 .metric strong{color:var(--navy);}
 
-.zoneRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
-.zonePill,
-Now let's make the Readiness section feel alive instead of looking like a list.
-
-Edit 1 — Readiness Pills
-File
-styles.css
-Search
-.readinessPill
-
-If it exists, replace the entire block.
-
-If it doesn't exist, add this near the bottom:
+.zoneRow{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:12px;
+}
 
 .readinessPill{
 display:inline-block;
@@ -177,6 +170,17 @@ color:#B35C1E;
 .readinessPill.recovering{
 background:#FDE7E7;
 color:#B22222;
+}
+.readinessRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 0;
+border-bottom:1px solid rgba(0,0,0,.06);
+}
+
+.readinessRow:last-child{
+border-bottom:none;
 }
 .zonePill{background:rgba(255,255,255,.14);color:#F8E9C5;border:1px solid rgba(255,255,255,.18);}
 
