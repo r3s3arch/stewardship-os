@@ -204,7 +204,20 @@ border-bottom:1px solid rgba(0,0,0,.06);
 .readinessRow:last-child{
 border-bottom:none;
 }
-.zonePill{background:rgba(255,255,255,.14);color:#F8E9C5;border:1px solid rgba(255,255,255,.18);}
+.zonePill{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:6px 12px;
+border-radius:999px;
+background:rgba(248,233,197,.16);
+color:#F8E9C5;
+border:1px solid rgba(248,233,197,.35);
+font-size:12px;
+font-weight:800;
+letter-spacing:.08em;
+text-transform:uppercase;
+}
 
 .ready{background:#E9F4E6;color:var(--green);}
 .soon,.tomorrow{background:#FFF4D5;color:var(--yellow);}
