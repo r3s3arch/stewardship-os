@@ -249,10 +249,35 @@ function getReadiness(zone) {
   const hoursSince = Math.floor((new Date() - lastDate) / 1000 / 60 / 60);
   const hoursRemaining = getRecoveryThreshold(zone) - hoursSince;
 
-  if (hoursRemaining <= 0) return { label: "Ready", className: "ready", hoursRemaining: 0 };
-  if (hoursRemaining <= 12) return { label: "Ready Soon", className: "soon", hoursRemaining };
-  if (hoursRemaining <= 24) return { label: "Ready Tomorrow", className: "tomorrow", hoursRemaining };
-  return { label: "Recovering", className: "recovering", hoursRemaining };
+  if (hoursRemaining <= 0) {
+  return {
+    label: "Ready",
+    className: "ready",
+    hoursRemaining: 0
+  };
+}
+
+if (hoursRemaining <= 12) {
+  return {
+    label: "Soon",
+    className: "soon",
+    hoursRemaining
+  };
+}
+
+if (hoursRemaining <= 24) {
+  return {
+    label: "Tomorrow",
+    className: "tomorrow",
+    hoursRemaining
+  };
+}
+
+return {
+  label: "Recovering",
+  className: "recovering",
+  hoursRemaining
+};
 }
 
 function getNextAction() {
