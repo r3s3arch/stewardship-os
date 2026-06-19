@@ -360,10 +360,10 @@ function renderToday() {
 
   document.getElementById("todayExerciseList").innerHTML = getActiveExercisesForToday()
     .map(exercise => `
-      <div class="metric">
-        <strong>${exercise.name}</strong><br>
-        <span class="helpText">${exercise.purpose}</span>
-      </div>
+     <div class="focusCard">
+  <strong>${exercise.name}</strong>
+  <span>${exercise.purpose}</span>
+</div>
     `).join("");
 
   document.getElementById("readinessList").innerHTML = ZONES
